@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Project Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icon/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icon/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icon/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icon/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/icon/apple-touch-icon-60x60.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/icon/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/icon/apple-touch-icon-76x76.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/icon/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-196x196.png" sizes="196x196" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-16x16.png" sizes="16x16" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-128.png" sizes="128x128" />
+		<meta name="application-name" content="&nbsp;"/>
+		<meta name="msapplication-TileColor" content="#FFFFFF" />
+		<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+		<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+		<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+		<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+		<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+		
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<div style="background-image: url('images/motherboard2.jpg'); background-repeat: no-repeat;
+			background-attachment: fixed; background-size: cover;">
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul class="icons">
+						<li><h3 style="text-transform: capitalize; font-size: 20px; padding-top: 1rem; padding-left: 0.8rem; padding-right: 50rem;"><a href="index.html#nav">Thomas Mead</a></h3></li>
+						<li><h3 style="font-style: italic; font-weight: 10; font-family: Calisto MT; text-transform: capitalize; padding-top: 1rem; font-size: 20px;">
+							<a href="documents/resume.pdf" download="Thomas Mead - Resume">Resume</a></h3></li>
+						<li><a href="https://www.linkedin.com/in/tom-mead-09a652196/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/tcm-engineer" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+				<div id="main">
+					<!-- Post -->
+					<section class="post" style="line-height: normal;">
+						<header class="major">
+							<h1 style="text-transform: capitalize;">MIPs Architecture C++ Computer Simulator</h1>
+							<p style="line-height: normal; margin-top: -1.5rem; text-align: center; font-weight: bold;">Source Code: 
+								<a style="font-weight: normal;" href="https://github.com/tcm-engineer/mips-architecture-simulator"> 
+									https://github.com/tcm-engineer/mips-architecture-simulator</br></a></p>
+						</header>
+
+						<p>	Implementation of a Von Neumann architecture simulation in C++, following a fetch→decode→execute
+							→write-back→memory access cycle. A limited instruction set and register topology is designed.
+							The architecture reads assembly code from a text file and prints architecture output.
+						
+							Two assembly code showcase programs are written:
+							<ol style="margin-top: -1.5rem; margin-left: 1.5rem;">
+								<li>To calculate (and print out) the squares of all the integers between 0 and 99.</li>
+								<li>To calculate (and print out) all the prime numbers between 1 and 1000.</li>
+							</ol>
+
+							The computer emulator is designed to read assembly code from a text file and store
+							it into a two-dimensional string array, this represents the computer memory. 
+							It contains 128 rows and 4 columns, the first block of the array the rows represent
+							each instruction and the columns are induvial instruction elements. Then the rest of 
+							the array is data memory. The registers are represented as a one-dimensional array 
+							with the first half of the array representing temporary registers and the second half
+							as saved registers.</br></br>
+							
+							The processor fetches the instruction from the memory array. The instruction is decoded 
+							using if statements to read the string type array element stored in the memory and determine 
+							what operation, register and memory location has been inputted. The execute stage uses a 
+							switch statement to identify which operation has been decoded to execute. This cycle repeats 
+							until all the instructions stored in memory have been completed.</br></br>
+							
+							Opcodes implemented, where rd, rs and rt are Register Destination, Register Source and Register Target, respectively:
+							<ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+								<li><strong>lw: </strong>load word rt, offset(rs) </li>
+								<li><strong>sw: </strong>store word rt, offset(rs) </li>
+								<li><strong>ADD: </strong>ADD rd, rs, rt </li>
+								<li><strong>SUB: </strong>SUB rd, rs, rt </li>
+								<li><strong>ADDI: </strong>ADDI rd, rs, immediate_value </li>
+								<li><strong>MULT: </strong>MULT rd, rs, rt </li>
+								<li><strong>beq: </strong>beq rs, rt, offset </li>
+								<li><strong>j: </strong>target </li>
+							</ul>
+						</p>
+
+
+						<div style="margin-top: -0.5rem; width: 50%; margin-left: auto; margin-right: auto;" class="image main"><img src="images/MIPs.PNG" alt="MIPs Architecture" /></div>
+
+						<ul class="actions special">
+							<li><a href="index.html#nav" class="button">Return</a></li>
+						</ul>
+					</section>
+				</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section class="split contact">
+						<section>
+							<h3>Email</h3>
+							<p><a href="mailto: tcm1g17@soton.ac.uk">tcm1g17@soton.ac.uk</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/tom-mead-09a652196/" class="icon brands alt fa-linkedin"><span class="label">Instagram</span></a></li>
+								<li><a href="https://github.com/tcm-engineer" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

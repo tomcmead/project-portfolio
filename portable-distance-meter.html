@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Project Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icon/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icon/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icon/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icon/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/icon/apple-touch-icon-60x60.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/icon/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/icon/apple-touch-icon-76x76.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/icon/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-196x196.png" sizes="196x196" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-16x16.png" sizes="16x16" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-128.png" sizes="128x128" />
+		<meta name="application-name" content="&nbsp;"/>
+		<meta name="msapplication-TileColor" content="#FFFFFF" />
+		<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+		<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+		<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+		<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+		<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+		
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<div style="background-image: url('images/motherboard2.jpg'); background-repeat: no-repeat;
+			background-attachment: fixed; background-size: cover;">
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul class="icons">
+						<li><h3 style="text-transform: capitalize; font-size: 20px; padding-top: 1rem; padding-left: 0.8rem; padding-right: 50rem;"><a href="index.html#nav">Thomas Mead</a></h3></li>
+						<li><h3 style="font-style: italic; font-weight: 10; font-family: Calisto MT; text-transform: capitalize; padding-top: 1rem; font-size: 20px;">
+							<a href="documents/resume.pdf" download="Thomas Mead - Resume">Resume</a></h3></li>
+						<li><a href="https://www.linkedin.com/in/tom-mead-09a652196/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/tcm-engineer" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+				<div id="main">
+					<!-- Post -->
+					<section class="post" style="line-height: normal;">
+						<header class="major">
+							<h1 style="text-transform: capitalize;">Portable Distance Meter</h1>
+							<p style="line-height: normal; margin-top: -1.5rem; text-align: center; font-weight: bold;">Circuit Diagram: <a style="font-weight: normal;" href="images/circuitDiagramMeter.png"> Portable Distance Meter Circuit</br></a></p>
+						</header>
+
+						<p><strong style="font-size: 2em; line-height: 1.5em;">The Challenge</strong></br>
+							The portable distance meter, shown below, was the winning design in the 2018 University of Southampton
+							2nd year Electronic Engineering Group System Design Challenge sponsored by BAE Systems.
+							The challenge was to build a portable electronic high precision measuring device within 4 weeks.
+							There were 13 teams, each comprised of 6 people.</p>
+
+							<div style="margin-top: -0.5rem; width: 50%; margin-left: auto; margin-right: auto;" class="image main"><img src="images/portableDistanceMeter1.png" alt="Portable Distance Meter" /></div>
+
+						<p style="margin-top: -3rem;"><strong style="font-size: 2em; line-height: 1.5em;">System Design</strong></br>
+							<strong>Technology Stack</strong></br>
+							To create the software running on embedded Linux on Raspberry Pi we used Python 3.7 and the PyQt5
+							framework. Another proposed pairing was C++ and Qt5. We chose the first option because it allowed us to be
+							more productive in terms of implementing designed architecture, creating the graphical user interface,
+							communicating with the mobile application and interfacing with the operating system.</br></br>						
+
+							<strong>System Architecture</strong></br>
+							We decided that the program is going to be multithreaded, to allow independent working of the user interface,
+							hardware control and handling requests from mobile app at the same time. We used QThreads from the PyQt5
+							library. The main thread was running the GUI and engine, which was responsible for dataflow in the system.
+							The second thread was a hardware control and data processing unit, and the last one was responsible for
+							communication with the mobile app. To communicate between threads, we used PyQt5’s signal and slot mechanisms.</br></br>
+
+							<strong>Graphical User Interface</strong></br>
+							The GUI was divided into five different tabs - one for settings, two for data display and two control panels.
+							Each of them presented user with different options such as moving motors, taking measurements and
+							mapping the room. The user could also view all measurements and maps taken since start of the session -
+							additional information such as a timestamp and uncertainty of the measurement are provided.</br></br>
+
+							<strong>Updater</strong></br>
+							In the code there is a simple updater implemented. It requires an access to Wi-Fi which can be obtained by usage
+							of the virtual keyboard on the touchscreen. Once updater is launched from the GUI, it pulls the most recent
+							version of the software from GitHub and restarts the program.</br></br>
+						</p>
+
+						<div  style="margin-top: -2rem; width: 30%; margin-left: auto; margin-right: auto;" class="image main"><img src="images/blockDiagram.png" alt="Distance Meter Block Diagram" /></div>
+
+						<p style="margin-top: -3rem;"><strong style="font-size: 2em; line-height: 1.5em;">Hardware Design</strong></br>
+							<strong>Hardware Modules</strong></br>
+							<ul style="margin-top: -1.5rem; padding-left: 2rem; ">
+								<li>Raspberry Pi 3 and Touchscreen</li>
+								<li>Seeedstudio LIDAR Module</li>
+								<li>Stepper Motor and Driver</li>
+								<li>Laser Circuit</li>
+								<li>Power Management</li>
+							</ul>
+							
+							<strong>Raspberry Pi 3 and Touch Screen</strong></br>
+							We decided to go for the Raspberry Pi 3 and a compatible touchscreen for our project as from the outset we
+							realised we had a team that was stronger with programming than with hardware. Using a Pi and touchscreen
+							would help us to reduce the number of circuits needed to be built as we would not need extra peripheral
+							hardware such as buttons to interface with the GUI. Furthermore, by using a Pi we could easily implement
+							Bluetooth connectivity with the device.</br></br>
+
+							<strong>Seeedstudio LIDAR Module</strong></br>
+							We needed a laser to be able to show where the system was pointing. We decided to go for the Seeedstudio
+							LIDAR module for our main sensor as it has a high precision: 1% error between 0.3-6m and 2% error from 6-
+							12m</br></br>
+
+							<strong>Stepper Motor and Driver</strong></br>
+							We went for a stepper motor and a driver chip capable of microstepping over a servo motor as we wanted the
+							increased accuracy and higher torque that one can get from a microstepped stepper motor over a servo.
+							Furthermore, for the room scan functionality we needed a 360° range of motion which is harder to find with a
+							servo.</br></br>
+
+							<strong>Laser Circuit</strong></br>
+							The laser pointer acts as a reference to mark what the point the device is measuring, therefore it must be placed
+							as close to the lidar sensor and in parallel to its line of sight. Adding a laser increases the ease of use of the
+							device by allowing the user to know exactly what point is being measured. This sub-system will output a clear
+							visible light dot, with limited light spreading and low intensity.</br></br>
+							
+							<strong>Power Management</strong></br>
+							To power the Pi, we needed a 5v micro USB connection. We also needed a second power source of 2.8V to
+							power the motor. We decided to go for a power bank for our power source over battery cells as it is
+							rechargeable, has the required voltage for the Pi and can be easily stepped down to 2.8V using a voltage
+							regulator.</br></br>
+						</p>
+
+						<div  style="margin-top: -2rem; width: 40%; margin-left: auto; margin-right: auto;" class="image main"><img src="images/circuitDiagramMeter.png" alt="Distance Meter Block Diagram" /></div>
+
+						<p style="margin-top: -3rem;"><strong style="font-size: 2em; line-height: 1.5em;">My Contribution</strong></br>
+							For this project, my tasks involved the hardware research, design, simulation, manufacturing and testing. The
+							areas of the device I contributed to be the laser pointer sub-system, the stepping motor sub-system, and the stepdown
+							voltage converter. I was originally tasked to design, build and test the laser pointer sub-system and the
+							step-down voltage converter. Once my tasks were completed, I assisted in building and testing of the stepping
+							motor sub-system along with testing of the Lidar. Furthermore, I interfaced the step-down voltage converter
+							with the stepping motor board and the power-bank and interfaced the laser pointer with the raspberry pi. Once
+							the sub-system interfacing tests were complete, I soldered components for the step-down voltage converter and
+							the stepping motor board onto Veroboard.
+						</p>
+
+						<ul class="actions special">
+							<li><a href="index.html#nav" class="button">Return</a></li>
+						</ul>
+					</section>
+				</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section class="split contact">
+						<section>
+							<h3>Email</h3>
+							<p><a href="mailto: tcm1g17@soton.ac.uk">tcm1g17@soton.ac.uk</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/tom-mead-09a652196/" class="icon brands alt fa-linkedin"><span class="label">Instagram</span></a></li>
+								<li><a href="https://github.com/tcm-engineer" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

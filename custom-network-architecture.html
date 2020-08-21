@@ -1,0 +1,184 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Project Portfolio</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="apple-touch-icon-precomposed" sizes="57x57" href="images/icon/apple-touch-icon-57x57.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/icon/apple-touch-icon-114x114.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/icon/apple-touch-icon-72x72.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/icon/apple-touch-icon-144x144.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="60x60" href="images/icon/apple-touch-icon-60x60.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="images/icon/apple-touch-icon-120x120.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="76x76" href="images/icon/apple-touch-icon-76x76.png" />
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="images/icon/apple-touch-icon-152x152.png" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-196x196.png" sizes="196x196" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-32x32.png" sizes="32x32" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-16x16.png" sizes="16x16" />
+		<link rel="icon" type="image/png" href="images/icon/favicon-128.png" sizes="128x128" />
+		<meta name="application-name" content="&nbsp;"/>
+		<meta name="msapplication-TileColor" content="#FFFFFF" />
+		<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+		<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+		<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+		<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+		<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+		
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+		<div id="wrapper">
+			<div style="background-image: url('images/motherboard2.jpg'); background-repeat: no-repeat;
+			background-attachment: fixed; background-size: cover;">
+
+				<!-- Nav -->
+				<nav id="nav">
+					<ul class="icons">
+						<li><h3 style="text-transform: capitalize; font-size: 20px; padding-top: 1rem; padding-left: 0.8rem; padding-right: 50rem;"><a href="index.html#nav">Thomas Mead</a></h3></li>
+						<li><h3 style="font-style: italic; font-weight: 10; font-family: Calisto MT; text-transform: capitalize; padding-top: 1rem; font-size: 20px;">
+							<a href="documents/resume.pdf" download="Thomas Mead - Resume">Resume</a></h3></li>
+						<li><a href="https://www.linkedin.com/in/tom-mead-09a652196/" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="https://github.com/tcm-engineer" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</nav>
+
+				<!-- Main -->
+				<div id="main">
+					<!-- Post -->
+					<section class="post" style="line-height: normal;">
+						<header class="major">
+							<h1 style="text-transform: capitalize;">Custom Network Architecture for Embedded Systems</h1>
+							<p style="line-height: normal; margin-top: -1.5rem; text-align: center; font-weight: bold;">Source Code: 
+								<a style="font-weight: normal;" href="https://github.com/tcm-engineer/custom-protocol-stack">https://github.com/tcm-engineer/custom-protocol-stack</br></a></p>
+						</header>
+
+						<p><strong style="font-size: 2em; line-height: 1.5em;">Protocol Stack</strong></br>
+							Our team protocol stack design comprises of 5-layers, application, transport, network, datalink
+							and physical. The implementation is a full, working, network architecture capable of supporting
+							a smart lighting application for a Ill Matto and RFM12B hardware (shown at the end of the page). 3 Ill Mattos are implemented
+							with 2 switches and 2 LEDs and has wireless control each other's LEDs. The architecture supports a distributed
+							application, rather than requiring a centralised ‘hub’.
+							
+							Each layer has its own defined byte ‘struct’ format, comprised of ‘uint8_t’
+							and ‘uint16_t’ variables, and a separate transmit and receive function. At the end of each layer’s
+							function, it will either call the layer’s above or below, transmit or receive function, depending
+							on the current operation of the program. Each receive or transmit function call passes an array
+							of bytes encapsulating or de-encapsulating the message with a header and footer, and a
+							necessary byte of information if required, as shown below.</p>
+
+							<div style="margin-top: -0.5rem; width: 60%; margin-left: auto; margin-right: auto;" class="image main"><img src="images/protocolStack.PNG" alt="Custom Protocol Stack"/></div>
+							<p style="margin-top: -2.5rem;">								
+							I designed the network layer protocol. When the transport layer decides to send a segment, the
+							‘transmit_NET’ function is called, passing the transport segment byte array and destination
+							address of the message. The network layer encapsulates transport segment with a required
+							header and footer and provides a service to the transport layer which is determining the nexthop
+							address to find the destination in the shortest time. This computed address and the network
+							packet byte array is sent to the ‘transmit_LLC’ for transmission. Upon receiving, the data-link
+							calls the ‘receive_NET’ function which passes the network packet byte array to the network
+							layer, if the packet received is destined for this address the ‘receive_TRAN’ function is called,
+							de-encapsulating the packet and passing the transport segment byte array and message source
+							address. Otherwise, the packet is forwarded to the next node by computing the next-hop address
+							to reach the destination and calling the ‘transmit_LLC’.
+						</p>
+
+						<p><strong style="font-size: 2em; line-height: 1.5em;">Network Layer Design</strong></br>
+							<strong style="line-height: 2em;">Network Packet Byte Structure:</strong></br>
+							<div style="margin-top: -2.3rem; width: 60%; margin-left: 7rem;" class="image main"><img src="images/packetStructure.PNG" alt="Packet Structure"/></div>
+
+							<strong style="margin-top: -3rem;">Packet Bytes:</strong></br>
+							<ul style="margin-left: 7rem;">
+								<li><strong>Checksum:</strong> [2] - 16 multiple parity bits (representing 15 bytes chunks and 6 bytes)</li>
+								<li><strong>Length:</strong> Integer representing number of bytes defined in the TRAN segment</li>
+								<li><strong>DEST Address:</strong> Integer representing intended ID address for the receiving Il Matto destination</li>
+								<li><strong>SRC Address:</strong> Integer representing ID address of the sending Il Matto</li>
+								<li><strong>Control:</strong> <ul style="margin-left: 3rem;">
+									<li>0000 0000 0000 0001 - Echo broadcast call</li>
+									<li>0000 0000 0000 001x - echo acknowledgement containing distance table inside TRAN segment</li>							
+								</ul>						
+								</li>
+							</ul>
+
+							<strong style="margin-top: -4rem;">Network Routing:</strong></br>
+							<ul style="margin-left: 7rem;">
+								<li><strong>Weight:</strong><ul style="margin-left: 3rem;">
+									<li>Node-to-node round-trip time between echo broadcast and acknowledgement
+										measured as a factor of 5-10 milliseconds</li>
+									<li>Out of range nodes distance is set to 255</li>
+									<li>The distance to itself (0 → 0, 1 → 1, 2 → 2, 3 → 3, 4 → 4, 5 → 5) are always
+										keep to 0</li>
+								</ul></li>
+							</ul>
+
+							<div style="margin-top: -1.5rem; width: 60%; margin-left: 7rem;" class="image main"><img src="images/nodeTable.PNG" alt="Node Table"/></div>
+
+							<ul style="margin-top: -2.5rem; margin-left: 7rem;">
+								<li><strong>Weight Table Format:</strong><ul style="margin-left: 3rem;">
+									<li>Distance table array format for transmission in transport segment in echo
+										acknowledgement:</br> Row node 0 distances, row node 1 distances … row node n distances,
+										where n is number of nodes in network.</li>
+										</ul>
+							</ul>
+
+							<ul style="margin-top: -0.5rem; margin-left: 7rem;">
+								<li><strong>Distance Vector Routing Variation Algorithm:</strong><ol style="margin-left: 3rem;">
+									<li>Find the direct distance to each of the node neighbours by timing the
+										round-trip time between the echo broadcast and acknowledgement for
+										each node.</li>
+									<li>Update the current distance table by averaging it with the received
+										distance table in the echo acknowledgement packet, distances only
+										average for values less than 255.
+									</li>
+									<li>Apply Dijkstra’s algorithm to distance table to determine the shortest
+										path and next hop address.
+									</li>
+									<li>Each node along the path recomputes Dijkstra’s algorithm for their
+										current distance table to determine the next hop address.
+									</li>
+									
+							</ul>
+						</p>
+
+						<div style="margin-top: -0.5rem; width: 50%; margin-left: auto; margin-right: auto;" class="image main"><img src="images/ilMatto2.jpg" alt="Il Matto Development Boardk"/></div>
+
+						<ul class="actions special">
+							<li><a href="index.html#nav" class="button">Return</a></li>
+						</ul>
+					</section>
+				</div>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<section class="split contact">
+						<section>
+							<h3>Email</h3>
+							<p><a href="mailto: tcm1g17@soton.ac.uk">tcm1g17@soton.ac.uk</a></p>
+						</section>
+						<section>
+							<h3>Social</h3>
+							<ul class="icons alt">
+								<li><a href="https://www.linkedin.com/in/tom-mead-09a652196/" class="icon brands alt fa-linkedin"><span class="label">Instagram</span></a></li>
+								<li><a href="https://github.com/tcm-engineer" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
+						</section>
+					</section>
+				</footer>
+			</div>
+		</div>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrollex.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/browser.min.js"></script>
+		<script src="assets/js/breakpoints.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
